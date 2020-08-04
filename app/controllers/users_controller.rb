@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   	if @user.save
       redirect_to root_url, notice: 'Пользователь успешно зарегистрирован!'
     else
-      render 'new'
+      render :edit
   	end
   end
 
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   	if @user.update(user_params)
       redirect_to user_path(@user), notice: 'Данные успешно обновлены!!'
     else
-      render 'edit'
+      render :edit
   	end
   end
 
@@ -40,6 +40,10 @@ class UsersController < ApplicationController
   	@questions = @user.questions.order(created_at: :desc)
 
   	@new_question = @user.questions.build
+
+  	@questions_count = @questions.count
+  	@answers_count = @questions.where.not(answer: nil).count
+  	@unanswered_count = @questions_count - @answers_count
   end
 
   private
