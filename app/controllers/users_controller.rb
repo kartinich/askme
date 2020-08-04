@@ -24,13 +24,11 @@ class UsersController < ApplicationController
   end
 
   def update
-  	redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
-
-  	if @user.update(user_params)
-      redirect_to user_path(@user), notice: 'Данные успешно обновлены!!'
+    if @user.update(user_params)
+      redirect_to user_path(@user), notice: 'Данные обновлены'
     else
       render :edit
-  	end
+    end
   end
 
   def edit
