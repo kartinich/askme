@@ -1,34 +1,59 @@
 class UsersController < ApplicationController
+  
+  before_action :load_user, except: [:index, :create, :new]
+  before_action :authorize_user, except: [:index, :new, :create, :show]
+
+
   def index
-  	@users = [
-      User.new(
-        id: 1,
-        name: 'Dmitry',
-        username: 'kartinich',
-        avatar_url: 'https://avatars1.githubusercontent.com/u/45013949?s=460&u=bbbb1ab7109d55f2b32365be57bce3518b142541&v=4'
-      ),
-      User.new(id: 2, name: 'Misha', username: 'aristofun')
-    ]
+  	@users = User.all
   end
 
   def new
+  	redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
+  	@user = User.new
+  end
+
+  def create
+  	@user = User.new(user_params)
+
+  	if @user.save
+      redirect_to root_url, notice: 'Пользователь успешно зарегистрирован!'
+    else
+      render 'new'
+  	end
+  end
+
+  def update
+  	redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
+
+  	if @user.update(user_params)
+      redirect_to user_path(@user), notice: 'Данные успешно обновлены!!'
+    else
+      render 'edit'
+  	end
   end
 
   def edit
   end
 
   def show
-  	@user = User.new(
-      name: 'Dmitry',
-      username: 'kartinich',
-      avatar_url: 'https://avatars1.githubusercontent.com/u/45013949?s=460&u=bbbb1ab7109d55f2b32365be57bce3518b142541&v=4'
-  	)
+  	@questions = @user.questions.order(created_at: :desc)
 
-  	@questions = [
-      Question.new(text: 'Как дела?', created_at: Date.parse('27.03.2016')),
-      Question.new(text: 'В чем смысл жизни?', created_at: Date.parse('27.03.2016'))
-    ]
+  	@new_question = @user.questions.build
+  end
 
-    @new_question = Question.new
+  private
+
+  def authorize_user
+    reject_user unless @user == current_user
+  end
+
+  def load_user
+    @user ||= User.find params[:id]
+  end
+  	
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation,
+                                 :name, :username, :avatar_url)
   end
 end
