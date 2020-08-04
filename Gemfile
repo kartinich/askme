@@ -10,6 +10,8 @@ gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 
+gem 'rails_12factor'
+
 gem 'uglifier'
 
 # Reduces boot times through caching; required in config/boot.rb
