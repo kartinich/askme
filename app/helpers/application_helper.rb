@@ -13,18 +13,15 @@ module ApplicationHelper
   end
 
   def inclination(number, var1, var2, var3)
-    option_1 = number % 10
-    option_2 = number % 100
+    option1 = number % 10
+    option2 = number % 100
 
-    case
-    when (11..14).include?(option_2)
-      var3
-    when option_1 == 1
-      var1
-    when (2..4).include?(option_1)
-      var2
-    else
-      var3
+    return 'var3' if option2 >= 11 && option2 <= 14
+
+    case option1
+      when 1 then var1
+      when 2..4 then var2
+      when 5..9, 0 then var3
     end
   end
 end
