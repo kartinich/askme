@@ -10,11 +10,11 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
 
-    if @question.save
-      redirect_to user_path(@question.user), notice: 'Вопрос задан!'
-    else
-      render :new
-    end
+      if @question.save
+        redirect_to user_path(@question.user), notice: 'Вопрос задан!'
+      else
+        render :new
+      end
   end
 
   # PATCH/PUT /questions/1
@@ -34,16 +34,17 @@ class QuestionsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
-    def load_question
-      @question = Question.find(params[:id])
-    end
+  def load_question
+    @question = Question.find(params[:id])
+  end
 
-    def authorize_user
-      reject_user unless @question.user == current_user
-    end
+  def authorize_user
+    reject_user unless @question.user == current_user
+  end
 
-    def question_params
+  def question_params
     # Защита от уязвимости: если текущий пользователь — адресат вопроса,
     # он может менять ответы на вопрос, ему доступно также поле :answer.
     if current_user.present? && params[:question][:user_id].to_i == current_user.id
