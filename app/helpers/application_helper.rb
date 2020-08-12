@@ -12,16 +12,15 @@ module ApplicationHelper
     content_tag 'span', '', class: "fa fa-#{icon_class}"
   end
 
-  def inclination(number, var1, var2, var3)
+  def inclination(number, one, few, many)
     option1 = number % 10
     option2 = number % 100
 
-    return 'var3' if option2 >= 11 && option2 <= 14
-
+    return many if (11..14).include?(option2)
     case option1
-      when 1 then var1
-      when 2..4 then var2
-      when 5..9, 0 then var3
+    when 1 then one
+    when 2..4 then few
+    else many
     end
   end
 end

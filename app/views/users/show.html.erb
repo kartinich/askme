@@ -26,15 +26,15 @@
   <div class="user-statistics container text-center">
     <div class="column-1-3">
       <h1 class="title-small"><%= @questions_count %></h1>
-          <%= inclination(@questions.size, 'вопрос', 'вопроса', 'вопросов') %>
+         <%= inclination(@questions.size, 'вопрос', 'вопроса', 'вопросов') %>
     </div>
     <div class="column-1-3">
       <h1 class="title-small"><%= @answers_count %></h1>
-      <p>ответов</p>
+         <%= inclination(@answers_count, 'ответ', 'ответа', 'ответов') %>
     </div>
     <div class="column-1-3">
       <h1 class="title-small"><%= @unanswered_count %></h1>
-      <p>безответных</p>
+         <%= inclination(@unanswered_count, 'безответный', 'безответных', 'безответных') %>
     </div>
   </div>
 </div>
