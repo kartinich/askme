@@ -12,6 +12,8 @@ gem 'puma', '~> 3.11'
 
 gem 'rails_12factor'
 
+gem 'recaptcha', require: 'recaptcha/rails'
+
 gem 'uglifier'
 
 # Reduces boot times through caching; required in config/boot.rb
