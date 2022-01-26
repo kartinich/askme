@@ -1,24 +1,19 @@
-# README
+<h1><b>"Хорошие вопросы"</h1></b>
+Приложение является аналогом популярного сайта "AskMe".<br>
+<a href="http://askplease.herokuapp.com/">Актуальная версия приложения</a>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<br>На главной странице выведены все зарегистрированые пользватели, которым можно задать вопросы. К вопросам можно добавлять хештеги, список которых также выведен на главной странице. В целях защиты от спама при создании вопроса проводится проверка reCaptcha.
 
-Things you may want to cover:
+Приложение написано на Ruby версии 2.7.1 и Ruby on Rails версии 5.2.4.
+<br>Перейдите в терминале в каталог с приложением и запустите следующие команды:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+bundle
+```
+```
+rails db:migrate
+```
+```
+rails s
+```
+Далее приложение будет доступно на локальном сервере.
